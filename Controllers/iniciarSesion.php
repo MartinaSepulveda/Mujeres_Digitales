@@ -25,7 +25,7 @@ require_once("../Models/validarSesion.php");
         } else {
             // Si algún campo está vacío, mostrar un mensaje de error
             echo "<script>alert('Por favor, complete todos los campos.');</script>";
-            echo "<script>location.href='../Views/login.php';</script>";
+            echo "<script>location.href='../Views/extras/login.php';</script>";
         }
 
 

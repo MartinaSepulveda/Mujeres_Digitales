@@ -53,7 +53,7 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="paciente.php" class="logo d-flex align-items-center">
         <img src="../assets/img/logo-w.png" alt="" height="50px">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -142,14 +142,14 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
 
       <!-- Item nav perfil -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="Perfil.html">
+        <a class="nav-link collapsed" href="Perfil.php">
           <i class="bi bi-person"></i>
           <span>Perfil</span>
         </a>
       </li><!-- Final Item nav perfil  -->
 
       <li class="nav-item"></li>
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../../index.html">
           <i class="bi bi-box-arrow-right"></i>
           <span>Cerrar Sesión</span>
         </a>
@@ -410,202 +410,6 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
 
 
   </script>
-
-
-  <!-- <script>
-$(document).ready(() => {
-  function mostrarOrden() {
-    $.ajax({
-        url: 'http://localhost:8080/paciente/ordenes/consultar/14783',
-        type: 'GET',
-        dataType: 'json',
-        success: function (res) {
-            if (res.success) { // Verifica si la respuesta fue exitosa
-                let data = '';
-                // Asegúrate de que res.data es un array
-                const ordenes = res.data; // Accede al array con las órdenes
-                // Itera sobre cada elemento en el array
-                ordenes.forEach(orden => {
-                    data += `
-                        <tr>
-                            <td>${orden.date || 'N/A'}</td>
-                            <td>${orden.id_document || 'N/A'}</td>
-                            <td>${orden.order || 'N/A'}</td>
-                        </tr>
-                    `;
-                });
-
-                $('#tbody').html(data); // Actualiza el contenido de la tabla
-            } else {
-                console.error("Error en la respuesta:", res.message);
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error('Error en la solicitud:', textStatus, errorThrown);
-            alert("No fue posible cargar los registros, lo sentimos :(");
-        }
-    });
-}
-
-
-  mostrarOrden(); // Llama a la función para mostrar las órdenes
-
-
-  let currentPage = 1; // Página actual
-  let recordsPerPage = 10; // Registros por página
-  let sortAscending = false; // Orden ascendente o descendente
-
-  // Función para renderizar la tabla
-  function renderTable(filteredData) {
-    const dataBody = document.getElementById('dataBody');
-    dataBody.innerHTML = ''; // Limpiar el contenido previo
-
-    const start = (currentPage - 1) * recordsPerPage; // Calcular el inicio
-    const end = start + recordsPerPage; // Calcular el final
-
-    // Agregar cada fila de datos
-    filteredData.slice(start, end).forEach(item => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-          <td>${item.date}</td>
-          <td>${item.document}</td>
-          <td>${item.ordenNum}</td>
-          <td>
-              <a href="DetalleOrden.html" class="text-success-emphasis" title="Ver"><i class="bi bi-eye"></i></a>
-          </td>
-      `;
-
-      // Agregar evento de clic a la fila
-      row.addEventListener('click', () => {
-        // Redirigir a la ventana de detalles
-        window.location.href = `Detalles.html?ordenNum=${item.ordenNum}`; // Cambia la URL según necesites
-      });
-
-      dataBody.appendChild(row); // Agregar fila a la tabla
-    });
-
-    updatePagination(filteredData.length); // Actualizar la paginación
-  }
-
-  // Función para actualizar la paginación
-  function updatePagination(totalRecords) {
-    const pageInfo = document.getElementById('pageInfo');
-    const totalPages = Math.ceil(totalRecords / recordsPerPage); // Calcular total de páginas
-
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`; // Mostrar información de la página
-
-    document.getElementById('prevButton').disabled = currentPage === 1; // Deshabilitar botón "Anterior" si es la primera página
-    document.getElementById('nextButton').disabled = currentPage === totalPages; // Deshabilitar botón "Siguiente" si es la última página
-  }
-
-  // Función para filtrar los datos
-  function filterData() {
-    const ordenNum = document.getElementById('ordenNum').value; // Obtener valor del campo "Número de orden"
-    const fechaInicio = document.getElementById('fechaInicio').value; // Obtener valor de la fecha de inicio
-    const fechaFin = document.getElementById('fechaFin').value; // Obtener valor de la fecha de fin
-
-    const filteredData = data.filter(item => {
-      const date = new Date(item.date); // Convertir la fecha del item a objeto Date
-      const inDateRange = (!fechaInicio || date >= new Date(fechaInicio)) && (!fechaFin || date <= new Date(fechaFin)); // Comprobar rango de fechas
-      const matchesordenNum = !ordenNum || item.ordenNum.includes(ordenNum); // Comprobar si coincide el número de orden
-      return inDateRange && matchesordenNum; // Retornar verdadero si ambos filtros coinciden
-    });
-
-    // Renderizar tabla con datos filtrados y ordenados
-    renderTable(filteredData.sort((a, b) => sortAscending ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date)));
-  }
-
-  // Mostrar u ocultar la "X" según el contenido del input de número de orden
-  document.getElementById('ordenNum').addEventListener('input', (event) => {
-    const clearButton = document.getElementById('limpiarOrden');
-    clearButton.style.display = event.target.value ? 'inline' : 'none'; // Mostrar "X" si hay valor
-  });
-
-  // Mostrar u ocultar la "X" de fechas según el contenido de los inputs
-  function toggleDateClearButton() {
-    const fechaInicio = document.getElementById('fechaInicio').value;
-    const fechaFin = document.getElementById('fechaFin').value;
-    const clearDateButton = document.getElementById('limpiarFechas');
-    clearDateButton.style.display = (fechaInicio || fechaFin) ? 'inline' : 'none'; // Mostrar "X" si hay valor en al menos uno
-  }
-
-  // Función para limpiar todos los filtros
-  function clearFilters() {
-    document.getElementById('ordenNum').value = ''; // Limpiar número de orden
-    document.getElementById('fechaInicio').value = ''; // Limpiar fecha de inicio
-    document.getElementById('fechaFin').value = ''; // Limpiar fecha de fin
-    currentPage = 1; // Resetear a la primera página
-    filterData(); // Volver a cargar los datos sin filtros
-    document.getElementById('limpiarOrden').style.display = 'none'; // Ocultar la "X"
-    document.getElementById('limpiarFechas').style.display = 'none'; // Ocultar la "X" de fechas
-  }
-
-  // Función para limpiar filtros de fechas
-  function limpiarFechas() {
-    document.getElementById('fechaInicio').value = ''; // Limpiar fecha de inicio
-    document.getElementById('fechaFin').value = ''; // Limpiar fecha de fin
-    toggleDateClearButton(); // Ocultar la "X" de fechas
-    currentPage = 1; // Resetear a la primera página
-    filterData(); // Volver a cargar los datos sin filtros
-  }
-
-  // Event listeners para el rango de fechas
-  document.getElementById('fechaInicio').addEventListener('input', () => {
-    toggleDateClearButton(); // Mostrar u ocultar la "X"
-  });
-
-  document.getElementById('fechaFin').addEventListener('input', () => {
-    toggleDateClearButton(); // Mostrar u ocultar la "X"
-  });
-
-  // Event listener para la "X" de fechas
-  document.getElementById('limpiarFechas').addEventListener('click', limpiarFechas); // Limpiar filtros de fechas
-
-  // Event listener para la "X" de número de orden
-  document.getElementById('limpiarOrden').addEventListener('click', clearFilters); // Limpiar todos los filtros
-
-  // Función para actualizar registros por página
-  function updateRecordsPerPage() {
-    recordsPerPage = parseInt(document.getElementById('recordsPerPage').value); // Obtener valor seleccionado
-    currentPage = 1; // Resetear a la primera página al cambiar registros por página
-    filterData(); // Filtrar los datos
-  }
-
-  // Event listeners para filtrar y actualizar registros por página
-  document.getElementById('ordenNum').addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      currentPage = 1; // Resetear a la primera página en un nuevo filtro
-      filterData(); // Filtrar datos
-    }
-  });
-
-  document.getElementById('fechaInicio').addEventListener('change', filterData); // Filtrar datos al cambiar fecha de inicio
-  document.getElementById('fechaFin').addEventListener('change', filterData); // Filtrar datos al cambiar fecha de fin
-  document.getElementById('recordsPerPage').addEventListener('change', updateRecordsPerPage); // Actualizar registros por página
-
-  // Eventos para los botones de paginación
-  document.getElementById('prevButton').addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--; // Reducir página actual
-      filterData(); // Filtrar datos
-    }
-  });
-
-  document.getElementById('nextButton').addEventListener('click', () => {
-    currentPage++; // Aumentar página actual
-    filterData(); // Filtrar datos
-  });
-
-  // Inicializar la tabla
-  document.addEventListener('DOMContentLoaded', () => {
-    sortAscending = false; // Asegurarse de que sea descendente según la fecha
-    renderTable(data.sort((a, b) => new Date(b.date) - new Date(a.date))); // Renderizar datos ordenados por fecha descendente
-  });
-  });
-
-
-
-  </script> -->
 
 </body>
 

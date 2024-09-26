@@ -129,7 +129,7 @@ require_once('../../Controllers/paciente/mostrarDatosPersonales.php');
 
     <!-- Item nav home -->
     <li class="nav-item">
-      <a class="nav-link collapsed" href="Paciente.html">
+      <a class="nav-link collapsed" href="Paciente.php">
         <i class="bi bi-grid"></i>
         <span>Home</span>
       </a>
@@ -137,14 +137,14 @@ require_once('../../Controllers/paciente/mostrarDatosPersonales.php');
 
     <!-- Item nav perfil -->
     <li class="nav-item">
-      <a class="nav-link collapsed" href="Perfil.html">
+      <a class="nav-link collapsed" href="Perfil.php">
         <i class="bi bi-person"></i>
         <span>Perfil</span>
       </a>
     </li><!-- Final Item nav perfil  -->
 
     <li class="nav-item"></li>
-      <a class="nav-link collapsed" href="index.html">
+      <a class="nav-link collapsed" href="../../index.html">
         <i class="bi bi-box-arrow-right"></i>
         <span>Cerrar Sesión</span>
       </a>

@@ -40,17 +40,17 @@ class ValidarSesion {
                 } else {
                     // Error en la fecha de nacimiento
                     echo "<script>alert('La fecha de nacimiento ingresada es incorrecta. Vuelva a ingresar.');</script>";
-                    echo "<script>location.href='../Views/login.html';</script>";
+                    echo "<script>location.href='../Views/extras/login.php';</script>";
                 }
             } else {
                 // Error en el tipo de documento
                 echo "<script>alert('Los datos no coinciden');</script>";
-                echo "<script>location.href='../Views/login.html';</script>";
+                echo "<script>location.href='../Views/extras/login.php';</script>";
             }
         } else {
             // No se encuentra en la base de datos
             echo "<script>alert('No se encuentra en el sistema. Verifique que haya escrito correctamente su número de identificación.');</script>";
-            echo "<script>location.href='../Views/login.html';</script>";
+            echo "<script>location.href='../Views/extras/login.php';</script>";
         }
     }
 }

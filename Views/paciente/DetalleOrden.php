@@ -53,13 +53,12 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
-  <div class="d-flex align-items-center justify-content-between">
-    <a href="index.html" class="logo d-flex align-items-center">
-      <img src="../assets/img//resultado.png" alt="">
-      <span class="d-none d-lg-block">ResulFast</span>
-    </a>
-    <i class="bi bi-list toggle-sidebar-btn"></i>
-  </div><!-- End Logo -->
+<div class="d-flex align-items-center justify-content-between">
+      <a href="paciente.php" class="logo d-flex align-items-center">
+        <img src="../assets/img/logo-w.png" alt="" height="50px">
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
 
   <div class="search-bar">
     <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -175,7 +174,7 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
                 cargarEncabezado()
               ?>
             </select>
-            <h4 id="txtProcedimiento"> </h4>
+            <h3 id="txtProcedimiento"> </h3>
 
 
 

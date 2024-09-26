@@ -1245,8 +1245,9 @@ h6 {
 }
 .main input, 
 .main select{
-  margin-top: 16px;
-  padding: 9px !important;
+  margin: 40px 5px;
+  padding: 10px !important;
+  width: 200px;
 }
 
 .main input:hover{
