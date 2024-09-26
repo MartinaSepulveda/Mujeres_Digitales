@@ -1245,9 +1245,14 @@ h6 {
 }
 .main input, 
 .main select{
+  margin-top: 16px;
+  padding: 9px !important;
+}
+
+#select_grupo{
   margin: 40px 5px;
-  padding: 10px !important;
-  width: 200px;
+  padding: 10px;
+  width: 300px;
 }
 
 .main input:hover{

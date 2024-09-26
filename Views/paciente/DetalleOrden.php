@@ -168,6 +168,7 @@ require_once('../../Controllers/paciente/mostrarDetalleOrdenes.php');
             <div class="col-md-12">
               <div>
 
+            <h2>Grupo:</h2>
             <select name="" id="select_grupo">
               <option value="#">Seleccione...</option>
               <?php
